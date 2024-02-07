@@ -19,18 +19,24 @@ public class BattleSystem : MonoBehaviour
 
 	public Text dialogueText;
 
+	public string[] questions = {"1 + 1 = 2", "2 + 2 = 5", "3 + 3 = 6"};
+	public string[] answers = {"True", "False", "True"};
+
+	public int iteration = 0;
+	public int maxIteration = 2;
+
 	public BattleHUD playerHUD;
 	public BattleHUD enemyHUD;
 
 	public BattleState state;
 
-    // Start is called before the first frame update
     void Start()
     {
 		state = BattleState.START;
 		StartCoroutine(SetupBattle());
     }
 
+//Start the battle
 	IEnumerator SetupBattle()
 	{
 		GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
@@ -50,12 +56,13 @@ public class BattleSystem : MonoBehaviour
 		PlayerTurn();
 	}
 
+//Player attack function
 	IEnumerator PlayerAttack()
 	{
 		bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
 
 		enemyHUD.SetHP(enemyUnit.currentHP);
-		dialogueText.text = "The attack is successful!";
+		dialogueText.text = "Correct! The attack is successful!";
 
 		yield return new WaitForSeconds(2f);
 
@@ -65,14 +72,18 @@ public class BattleSystem : MonoBehaviour
 			EndBattle();
 		} else
 		{
-			state = BattleState.ENEMYTURN;
-			StartCoroutine(EnemyTurn());
+			state = BattleState.PLAYERTURN;
+			PlayerTurn();
+
+			//state = BattleState.ENEMYTURN;
+			//StartCoroutine(EnemyTurn());
 		}
 	}
 
+//Enemy turn function
 	IEnumerator EnemyTurn()
 	{
-		dialogueText.text = enemyUnit.unitName + " attacks!";
+		dialogueText.text = "Incorrect! " + enemyUnit.unitName + " attacks!";
 
 		yield return new WaitForSeconds(1f);
 
@@ -94,6 +105,7 @@ public class BattleSystem : MonoBehaviour
 
 	}
 
+//Battle end check function
 	void EndBattle()
 	{
 		if(state == BattleState.WON)
@@ -105,11 +117,17 @@ public class BattleSystem : MonoBehaviour
 		}
 	}
 
+//Player turn function for allowing button use
 	void PlayerTurn()
 	{
-		dialogueText.text = "Choose an action:";
+		if(iteration > maxIteration){
+			iteration = 0;
+		}
+		//dialogueText.text = "Choose an action:";
+		dialogueText.text = questions[iteration];
 	}
 
+//Not currently used.
 	IEnumerator PlayerHeal()
 	{
 		playerUnit.Heal(5);
@@ -123,20 +141,51 @@ public class BattleSystem : MonoBehaviour
 		StartCoroutine(EnemyTurn());
 	}
 
-	public void OnAttackButton()
+//Button controls
+	public void OnTrueButton()
 	{
-		if (state != BattleState.PLAYERTURN)
-			return;
-
-		StartCoroutine(PlayerAttack());
+		PressButton("True");
 	}
 
-	public void OnHealButton()
+	public void OnFalseButton()
+	{
+		PressButton("False");
+	}
+
+	public void OnA_Button()
+	{
+		PressButton("A");
+	}
+
+	public void OnB_Button()
+	{
+		PressButton("B");
+	}
+
+	public void OnC_Button()
+	{
+		PressButton("C");
+	}
+
+	public void OnD_Button()
+	{
+		PressButton("D");
+	}
+
+//Button function
+	public void PressButton(string buttonValue)
 	{
 		if (state != BattleState.PLAYERTURN)
 			return;
 
-		StartCoroutine(PlayerHeal());
+		if(answers[iteration] == buttonValue){
+			iteration = iteration + 1;
+			StartCoroutine(PlayerAttack());
+		}else{
+			iteration = iteration + 1;
+			state = BattleState.ENEMYTURN;
+			StartCoroutine(EnemyTurn());
+		}
 	}
 
 }
