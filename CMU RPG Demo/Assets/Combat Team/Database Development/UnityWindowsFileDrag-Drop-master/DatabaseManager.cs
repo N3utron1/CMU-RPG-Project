@@ -74,7 +74,7 @@ public class DatabaseManager : MonoBehaviour
             }
         }
         // TODO: REMOVE
-        PrintQuestions();
+        //PrintQuestions();
     }
 
     void PrintQuestions() 

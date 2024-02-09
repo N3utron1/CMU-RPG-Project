@@ -7,6 +7,7 @@ public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
 public class BattleSystem : MonoBehaviour
 {
+	public List<Question> questionDB;
 
 	public GameObject playerPrefab;
 	public GameObject enemyPrefab;
@@ -23,6 +24,7 @@ public class BattleSystem : MonoBehaviour
 	public string[] answers = {"True", "False", "True"};
 
 	public int iteration = 0;
+	//public int listSize;
 	public int maxIteration = 2;
 
 	public BattleHUD playerHUD;
@@ -33,6 +35,7 @@ public class BattleSystem : MonoBehaviour
     void Start()
     {
 		state = BattleState.START;
+		//questionDB = DatabaseManager.dbmInstance.questionDB;
 		StartCoroutine(SetupBattle());
     }
 
