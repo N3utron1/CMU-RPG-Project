@@ -25,7 +25,19 @@ public class platformMovment : MonoBehaviour
             MoveOnYAxis();
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+    if (!other.CompareTag("Player")) return;
 
+    other.transform.parent = transform;
+        }
+
+            private void OnTriggerExit(Collider other)
+        {
+        if (!other.CompareTag("Player")) return;
+
+        other.transform.parent = null;
+        }
     private void MoveOnXAxis()
     {
         float newX = initialPosition.x + Mathf.PingPong(Time.time * 2f, moveDistance * 2) - moveDistance;
