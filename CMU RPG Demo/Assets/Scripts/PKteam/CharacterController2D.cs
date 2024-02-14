@@ -42,16 +42,13 @@ public class CharacterController2D : MonoBehaviour
     void Update()
     {
         // Movement controls
-        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
             moveDirection = Input.GetKey(KeyCode.A) ? -1 : 1;
         }
         else
         {
-            if (isGrounded || r2d.velocity.magnitude < 0.01f)
-            {
-                moveDirection = 0;
-            }
+            moveDirection = 0;
         }
 
         // Change facing direction
@@ -59,20 +56,18 @@ public class CharacterController2D : MonoBehaviour
         {
             if (moveDirection > 0 && !facingRight)
             {
-                facingRight = true;
-                t.localScale = new Vector3(Mathf.Abs(t.localScale.x), t.localScale.y, transform.localScale.z);
+                FlipCharacter(true);
             }
-            if (moveDirection < 0 && facingRight)
+            else if (moveDirection < 0 && facingRight)
             {
-                facingRight = false;
-                t.localScale = new Vector3(-Mathf.Abs(t.localScale.x), t.localScale.y, t.localScale.z);
+                FlipCharacter(false);
             }
         }
 
         // Jumping
         if (Input.GetKeyDown(KeyCode.W) && isGrounded)
         {
-            r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
+            Jump();
         }
 
         // Camera follow
@@ -109,5 +104,16 @@ public class CharacterController2D : MonoBehaviour
         // Simple debug
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(0, colliderRadius, 0), isGrounded ? Color.green : Color.red);
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(colliderRadius, 0, 0), isGrounded ? Color.green : Color.red);
+    }
+
+    void Jump()
+    {
+        r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
+    }
+
+    void FlipCharacter(bool faceRight)
+    {
+        facingRight = faceRight;
+        t.localScale = new Vector3(faceRight ? Mathf.Abs(t.localScale.x) : -Mathf.Abs(t.localScale.x), t.localScale.y, t.localScale.z);
     }
 }
