@@ -21,12 +21,16 @@ public class CharacterController2D : MonoBehaviour
     CapsuleCollider2D mainCollider;
     Transform t;
 
+    float upSpeed;
+    Rigidbody2D rb;
+
     // Use this for initialization
     void Start()
     {
         t = transform;
         r2d = GetComponent<Rigidbody2D>();
         mainCollider = GetComponent<CapsuleCollider2D>();
+        rb = GetComponent<Rigidbody2D>(); // Added
         r2d.freezeRotation = true;
         r2d.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         r2d.gravityScale = gravityScale;
@@ -73,7 +77,7 @@ public class CharacterController2D : MonoBehaviour
         // Camera follow
         if (mainCamera)
         {
-            mainCamera.transform.position = new Vector3(t.position.x, cameraPos.y, cameraPos.z);
+            mainCamera.transform.position = new Vector3(t.position.x, t.position.y, cameraPos.z);
         }
     }
 
@@ -115,5 +119,25 @@ public class CharacterController2D : MonoBehaviour
     {
         facingRight = faceRight;
         t.localScale = new Vector3(faceRight ? Mathf.Abs(t.localScale.x) : -Mathf.Abs(t.localScale.x), t.localScale.y, t.localScale.z);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.transform.SetParent(transform);
+        }
+        if (collision.gameObject.tag == "Trampoline" && !isGrounded)
+        {
+            upSpeed = 15f; // Reset upSpeed
+            rb.velocity = new Vector2(rb.velocity.x, upSpeed); // Apply vertical force
+        }
+    }
+
+    // unstick the player from the platform
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+            collision.transform.SetParent(null);
     }
 }
