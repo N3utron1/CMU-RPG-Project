@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class Question
 {
@@ -9,6 +10,7 @@ public class Question
     public string questionText;
     public string answer; // Correct answer, can be a string or "T/F"
     public List<string> nonAnswers; // For multiple choice questions, randomly picked from other questions
+    public string[] questions; // For multiple choice questions, randomly picked from other questions
 
     // Constructor to initialize the question object
     public Question(string type, string questionText, string answer)
@@ -17,6 +19,8 @@ public class Question
         this.questionText = questionText;
         this.answer = answer;
         this.nonAnswers = new List<string>();
+        //Question variable
+        this.questions = new string[4];
     }
 
     public void GenerateNonAnswers()
@@ -39,7 +43,28 @@ public class Question
         }
 
         // Shuffle the non-answers to randomize their order
-        ShuffleNonAnswers();
+        //ShuffleNonAnswers();
+        //Add GetPossibleAnswers() here, and remove ShuffleNonAnswers().
+        this.questions = GetPossibleAnswers();
+    }
+
+    public string[] GetPossibleAnswers()
+    {
+        List<string> allAnswers = nonAnswers.Concat(new List<string> { answer }).ToList();
+
+        System.Random rng = new System.Random();
+        int n = allAnswers.Count;
+
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            string value = allAnswers[k];
+            allAnswers[k] = allAnswers[n];
+            allAnswers[n] = value;
+        }
+
+        return allAnswers.Take(4).ToArray();
     }
 
     // Helper method to shuffle the non-answers

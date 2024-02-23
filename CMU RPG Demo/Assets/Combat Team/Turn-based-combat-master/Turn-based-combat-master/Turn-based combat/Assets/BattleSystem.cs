@@ -8,7 +8,7 @@ public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
 public class BattleSystem : MonoBehaviour
 {
-	//public List<Question> questionDB;
+	public List<Question> questionDB;
 
 	//public int maxIteration = questionDB.length
 
@@ -196,13 +196,14 @@ public class BattleSystem : MonoBehaviour
 			falseButtonText.text = "C";
 
 			//Suffle Mechanism?
-
-			/*
+/*
 			trueButtonText.text = questionDB[iteration].nonAnswers[0];
 			BButtonText.text = questionDB[iteration].nonAnswers[1];
 			falseButtonText.text = questionDB[iteration].nonAnswers[2];
 			DButtonText.text = questionDB[iteration].nonAnswers[3];
-			*/
+*/
+			trueButtonText.text = questionDB[iteration].questions[0];
+			
 
 			//Positioning
 			RectTransform trueButtonRectTransform = trueButton.GetComponent<RectTransform>();
@@ -285,7 +286,7 @@ public class BattleSystem : MonoBehaviour
 	{
 		if (state != BattleState.PLAYERTURN)
 			return;
-
+//Add to new lines.
 		if(answers[iteration] == buttonValue){
 			iteration = iteration + 1;
 			StartCoroutine(PlayerAttack());
