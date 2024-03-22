@@ -13,10 +13,16 @@ public class Unit : MonoBehaviour
 	public int maxHP;
 	public int currentHP;
 
+	public ShakerScript shakerScript;
+
 	public bool TakeDamage(int dmg)
 	{
 		currentHP -= dmg;
 
+		//Shaking code
+		shakerScript.Shake();
+
+		//Victory state check
 		if (currentHP <= 0)
 			return true;
 		else
@@ -29,5 +35,4 @@ public class Unit : MonoBehaviour
 		if (currentHP > maxHP)
 			currentHP = maxHP;
 	}
-
 }

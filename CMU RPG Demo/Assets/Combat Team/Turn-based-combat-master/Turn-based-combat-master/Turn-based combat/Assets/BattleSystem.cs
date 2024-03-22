@@ -44,16 +44,16 @@ public class BattleSystem : MonoBehaviour
 	//public Button AButton;
 	//public Text AButtonText;
 
-	public Button BButton;
-	public Text BButtonText;
+	//public Button BButton;
+	//public Text BButtonText;
 
 	//public Button CButton;
 	//public Text CButtonText;
 
-	public Button DButton;
-	public Text DButtonText;
+	//public Button DButton;
+	//public Text DButtonText;
 
-	public bool trueFalse;
+	//public bool trueFalse;
 
 	public Vector2 truePosition;
 	public Vector2 aPosition;
@@ -80,14 +80,14 @@ public class BattleSystem : MonoBehaviour
 		//AButton.enabled = false;
 		//AButtonText.enabled = false;
 
-		BButton.enabled = false;
-		BButtonText.enabled = false;
+		//BButton.enabled = false;
+		//BButtonText.enabled = false;
 
 		//CButton.enabled = false;
 		//CButtonText.enabled = false;
 
-		DButton.enabled = false;
-		DButtonText.enabled = false;
+		//DButton.enabled = false;
+		//DButtonText.enabled = false;
 
 		dialogueText.text = "A wild " + enemyUnit.unitName + " approaches...";
 
@@ -173,7 +173,7 @@ public class BattleSystem : MonoBehaviour
 		}
 		*/
 		//trueFalse = true;
-
+/*
 		if(trueFalse){
 			//Renames
 			trueButtonText.text = "True";
@@ -196,12 +196,12 @@ public class BattleSystem : MonoBehaviour
 			falseButtonText.text = "C";
 
 			//Suffle Mechanism?
-/*
+
 			trueButtonText.text = questionDB[iteration].nonAnswers[0];
 			BButtonText.text = questionDB[iteration].nonAnswers[1];
 			falseButtonText.text = questionDB[iteration].nonAnswers[2];
 			DButtonText.text = questionDB[iteration].nonAnswers[3];
-*/
+
 			trueButtonText.text = questionDB[iteration].questions[0];
 			
 
@@ -219,6 +219,7 @@ public class BattleSystem : MonoBehaviour
 
 
 		}		
+*/
 
 		if(iteration > maxIteration){
 			iteration = 0;
@@ -245,42 +246,38 @@ public class BattleSystem : MonoBehaviour
 //Button controls
 	public void OnTrueButton()
 	{
+		PressButton("True");
+		/*
 		if(trueFalse){
 			PressButton("True");
 		}else{
 			MultiPressButton(trueButtonText.text);
 		}
+		*/
 	}
 
 	public void OnFalseButton()
 	{
+		PressButton("False");
+		/*
 		if(trueFalse){
 			PressButton("False");
 		}else{
 			MultiPressButton(falseButtonText.text);
 		}
+		*/
 	}
 /*
-	public void OnA_Button()
-	{
-		PressButton("A");
-	}
-*/
 	public void OnB_Button()
 	{
 		MultiPressButton(BButtonText.text);
 	}
-/*
-	public void OnC_Button()
-	{
-		PressButton("C");
-	}
-*/
+
 	public void OnD_Button()
 	{
 		MultiPressButton(DButtonText.text);
 	}
-
+*/
 //True/False Button function
 	public void PressButton(string buttonValue)
 	{
@@ -297,6 +294,7 @@ public class BattleSystem : MonoBehaviour
 		}
 	}
 //Multichoice Button function
+/*
 		public void MultiPressButton(string buttonValue)
 	{
 		if (state != BattleState.PLAYERTURN)
@@ -311,6 +309,7 @@ public class BattleSystem : MonoBehaviour
 			StartCoroutine(EnemyTurn());
 		}
 	}
+*/
 
 /*
   if(questionDB[iteration].answer == buttonValue){

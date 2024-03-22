@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9155389575621061272}
   - component: {fileID: 4735666108394645384}
+  - component: {fileID: 3388824516132253324}
   m_Layer: 0
   m_Name: RPGPlayer
   m_TagString: Untagged
@@ -134,3 +135,18 @@ MonoBehaviour:
   damage: 10
   maxHP: 30
   currentHP: 30
+  shakerScript: {fileID: 3388824516132253324}
+--- !u!114 &3388824516132253324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5790304765120464063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b503febecf74c204e98c6e1048041dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeAmount: 20
+  originalPos: {x: 0, y: 0, z: 0}
