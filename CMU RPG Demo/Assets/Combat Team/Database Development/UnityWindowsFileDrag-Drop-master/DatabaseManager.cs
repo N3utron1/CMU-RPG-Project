@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 public class DatabaseManager : MonoBehaviour
 {
@@ -11,10 +12,6 @@ public class DatabaseManager : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(this);
-    }
-    
-    void Start()
-    {
         dbmInstance = this;
     }
 
@@ -50,42 +47,30 @@ public class DatabaseManager : MonoBehaviour
             processedLines.Add(ParseQuestionString(l));
         }
 
-        FillDatabase(processedLines);
+        // fill database
+        questionDB = processedLines;
+
+        // TEST
+        PrintQuestions();
     }
 
     public static Question ParseQuestionString(string questionString)
     {
         string[] parts = questionString.Split(',');
 
-        if (parts.Length != 3)
+        if (parts.Length != 2)
         {
             // Handle invalid input or return null, depending on your requirements
             Debug.LogError("Invalid question string format");
         }
 
-        string type = parts[0].Trim();
-        string questionText = parts[1].Trim();
-        string answer = parts[2].Trim();
+        string questionText = parts[0].Trim();
+        string answer = parts[1].Trim();
 
-        Question question = new Question(type, questionText, answer);
+        Question question = new Question(questionText, answer);
         // question.nonAnswers.Add(questionText); // Assuming the question itself is included in non-answers for non-multiple choice types
 
         return question;
-    }
-
-    void FillDatabase(List<Question> questions) 
-    {
-        questionDB = questions;
-
-        // generate non answers for mc questions
-        foreach (Question q in questionDB) {
-            if (q.type.Equals("multiple_choice"))
-            {
-                q.GenerateNonAnswers();
-            }
-        }
-        // TODO: REMOVE
-        //PrintQuestions();
     }
 
     void PrintQuestions() 
