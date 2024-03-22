@@ -7,6 +7,12 @@ public class DatabaseManager : MonoBehaviour
 {
     public List<Question> questionDB;
     public static DatabaseManager dbmInstance;
+    
+    void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+    
     void Start()
     {
         dbmInstance = this;
@@ -15,6 +21,11 @@ public class DatabaseManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public bool hasFile()
+    {
+        return (questionDB.Any());
     }
 
     public void ReadCSVFile(string filePath)

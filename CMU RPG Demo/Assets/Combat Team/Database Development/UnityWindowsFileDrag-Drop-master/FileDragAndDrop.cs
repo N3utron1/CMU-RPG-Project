@@ -9,6 +9,7 @@ public class FileDragAndDrop : MonoBehaviour
 {
     public string filePath;
     List<string> log = new List<string>();
+
     void OnEnable ()
     {
         // must be installed on the main thread to get the right thread id.
