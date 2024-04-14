@@ -14,9 +14,10 @@ namespace RPGM.Gameplay
     {
         public float speed = 1;
         public float acceleration = 2;
-        public Vector3 nextMoveCommand;
         public Animator animator;
         public bool flipX = false;
+
+        public Vector3 NextMoveCommand { get; set; } // Exposed as a property
 
         new Rigidbody2D rigidbody2D;
         SpriteRenderer spriteRenderer;
@@ -30,20 +31,19 @@ namespace RPGM.Gameplay
         State state = State.Idle;
         Vector3 start, end;
         Vector2 currentVelocity;
-        float startTime;
         float distance;
         float velocity;
 
         void IdleState()
         {
-            if (nextMoveCommand != Vector3.zero)
+            if (NextMoveCommand != Vector3.zero)
             {
                 start = transform.position;
-                end = start + nextMoveCommand;
+                end = start + NextMoveCommand;
                 distance = (end - start).magnitude;
                 velocity = 0;
-                UpdateAnimator(nextMoveCommand);
-                nextMoveCommand = Vector3.zero;
+                UpdateAnimator(NextMoveCommand);
+                NextMoveCommand = Vector3.zero;
                 state = State.Moving;
             }
         }
@@ -51,8 +51,8 @@ namespace RPGM.Gameplay
         void MoveState()
         {
             velocity = Mathf.Clamp01(velocity + Time.deltaTime * acceleration);
-            UpdateAnimator(nextMoveCommand);
-            rigidbody2D.velocity = Vector2.SmoothDamp(rigidbody2D.velocity, nextMoveCommand * speed, ref currentVelocity, acceleration, speed);
+            UpdateAnimator(NextMoveCommand);
+            rigidbody2D.velocity = Vector2.SmoothDamp(rigidbody2D.velocity, NextMoveCommand * speed, ref currentVelocity, acceleration, speed);
             spriteRenderer.flipX = rigidbody2D.velocity.x >= 0 ? true : false;
         }
 
@@ -90,7 +90,7 @@ namespace RPGM.Gameplay
         {
             rigidbody2D = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
-            pixelPerfectCamera = GameObject.FindObjectOfType<PixelPerfectCamera>();
+            pixelPerfectCamera = FindObjectOfType<PixelPerfectCamera>();
         }
     }
 }

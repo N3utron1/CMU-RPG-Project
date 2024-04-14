@@ -9,7 +9,7 @@ namespace RPGM.UI
     /// </summary>
     public class InputController : MonoBehaviour
     {
-        public float stepSize = 0.1f;
+        public float baseSpeed = 1.0f; // Base speed of the character
         GameModel model = Schedule.GetModel<GameModel>();
 
         public enum State
@@ -38,7 +38,7 @@ namespace RPGM.UI
 
         void DialogControl()
         {
-            model.player.nextMoveCommand = Vector3.zero;
+            model.player.NextMoveCommand = Vector3.zero;
             if (Input.GetKeyDown(KeyCode.LeftArrow))
                 model.dialog.FocusButton(-1);
             else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -49,16 +49,24 @@ namespace RPGM.UI
 
         void CharacterControl()
         {
-            if (Input.GetKey(KeyCode.UpArrow))
-                model.player.nextMoveCommand = Vector3.up * stepSize;
-            else if (Input.GetKey(KeyCode.DownArrow))
-                model.player.nextMoveCommand = Vector3.down * stepSize;
-            else if (Input.GetKey(KeyCode.LeftArrow))
-                model.player.nextMoveCommand = Vector3.left * stepSize;
-            else if (Input.GetKey(KeyCode.RightArrow))
-                model.player.nextMoveCommand = Vector3.right * stepSize;
-            else
-                model.player.nextMoveCommand = Vector3.zero;
+            float speedMultiplier = baseSpeed; // Adjust this value to change the speed
+
+            Vector3 moveDirection = Vector3.zero;
+
+            if (Input.GetKey(KeyCode.W))
+                moveDirection += Vector3.up;
+            if (Input.GetKey(KeyCode.S))
+                moveDirection += Vector3.down;
+            if (Input.GetKey(KeyCode.A))
+                moveDirection += Vector3.left;
+            if (Input.GetKey(KeyCode.D))
+                moveDirection += Vector3.right;
+
+            // Normalize the moveDirection to ensure consistent speed when moving diagonally
+            if (moveDirection != Vector3.zero)
+                moveDirection = moveDirection.normalized * speedMultiplier;
+
+            model.player.NextMoveCommand = moveDirection;
         }
     }
 }
