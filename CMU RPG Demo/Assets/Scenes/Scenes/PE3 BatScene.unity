@@ -2293,6 +2293,8 @@ MonoBehaviour:
     type: 3}
   enemyPrefab: {fileID: 5046871492963100558, guid: 7505eb1c25ba91c408159f99159a59c4,
     type: 3}
+  winSceneName: PE3-4
+  loseSceneName: 3rdFloorPearce
   playerBattleStation: {fileID: 776899475}
   enemyBattleStation: {fileID: 1466009198}
   dialogueText: {fileID: 1584004651}

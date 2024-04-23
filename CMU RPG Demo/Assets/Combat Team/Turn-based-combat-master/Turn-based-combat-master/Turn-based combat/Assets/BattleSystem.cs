@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 //using UnityEngine.Object;
 
@@ -14,6 +15,9 @@ public class BattleSystem : MonoBehaviour
 
 	public GameObject playerPrefab;
 	public GameObject enemyPrefab;
+
+	public string winSceneName;
+	public string loseSceneName;
 
 	public Transform playerBattleStation;
 	public Transform enemyBattleStation;
@@ -164,9 +168,19 @@ public class BattleSystem : MonoBehaviour
 		if(state == BattleState.WON)
 		{
 			dialogueText.text = "You won the battle!";
+
+			StartCoroutine(Waiter());
+
+            SceneManager.LoadScene(winSceneName);
+
 		} else if (state == BattleState.LOST)
 		{
 			dialogueText.text = "You were defeated.";
+
+			StartCoroutine(Waiter());
+        
+            SceneManager.LoadScene(loseSceneName);
+        	
 		}
 	}
 
@@ -250,6 +264,11 @@ public class BattleSystem : MonoBehaviour
 
 		state = BattleState.ENEMYTURN;
 		StartCoroutine(EnemyTurn());
+	}
+
+	IEnumerator Waiter()
+	{
+		yield return new WaitForSeconds(5);
 	}
 
 //Button controls
