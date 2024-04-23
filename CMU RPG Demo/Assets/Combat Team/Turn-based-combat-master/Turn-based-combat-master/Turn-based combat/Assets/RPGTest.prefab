@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3763780388596319052}
   - component: {fileID: -4915639470379526764}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: RPGTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5046871492963100558}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 550875679801749208}
@@ -46,18 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475d8d7ed9646504888a5702b5d7ed33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Rocky
-  unitLevel: 2
+  unitName: Test
+  unitLevel: 3
   damage: 5
-  maxHP: 30
-  currentHP: 30
-  numberOfQuestions: 2
-  enemyQuestions:
-  - '"Hello"'
-  - '"Hi"'
-  enemyAnswers:
-  - '"True"'
-  - '"False"'
+  maxHP: 40
+  currentHP: 40
   shakerScript: {fileID: -4915639470379526764}
 --- !u!114 &-4915639470379526764
 MonoBehaviour:
@@ -146,7 +139,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3f3a5ea5ace79004eba15d892dcc01a3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 00d860909dde0dc45a0dd923f9236719, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

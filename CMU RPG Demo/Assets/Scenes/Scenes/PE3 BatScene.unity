@@ -395,7 +395,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 106.000015, y: -0.0000019073}
+  m_AnchoredPosition: {x: 52, y: -0.0000019073}
   m_SizeDelta: {x: 146.05, y: 52.63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &147059767
@@ -1187,7 +1187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9, y: -183.47}
+  m_AnchoredPosition: {x: 0, y: -183.48}
   m_SizeDelta: {x: 800, y: 135.95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &874584808
@@ -1870,8 +1870,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.044133876}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -213.95001, y: -3}
-  m_SizeDelta: {x: -478.1, y: -26.9}
+  m_AnchoredPosition: {x: -178.79999, y: -3}
+  m_SizeDelta: {x: -407.81, y: -26.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1584004651
 MonoBehaviour:
@@ -1895,10 +1895,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 6ee455897a1df114db6047a1bd5f6c10, type: 3}
-    m_FontSize: 40
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -1906,7 +1906,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Insert text.
+  m_Text: Text
 --- !u!222 &1584004652
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2257,8 +2257,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 173.88, y: 0}
-  m_SizeDelta: {x: -357.95, y: 0}
+  m_AnchoredPosition: {x: 212.62, y: 0}
+  m_SizeDelta: {x: -435.41, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1714929642
 GameObject:
@@ -2291,21 +2291,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 5790304765120464063, guid: 6b4ad55c9f2b52a4e8e91732070aae93,
     type: 3}
-  enemyPrefab: {fileID: 5046871492963100558, guid: 302bdc8dead690247957754e115acde3,
+  enemyPrefab: {fileID: 5046871492963100558, guid: 7505eb1c25ba91c408159f99159a59c4,
     type: 3}
   playerBattleStation: {fileID: 776899475}
   enemyBattleStation: {fileID: 1466009198}
   dialogueText: {fileID: 1584004651}
   questions:
-  - 1 + 1 = 3
-  - 2 + 2 = 4
-  - 3 + 3 = 7
+  - Saving a document creates a copy of the file.
+  - A computer mouse is used for typing text.
+  - The more cores a CPU has, the faster it can generally perform tasks.
+  - Downloading uploads data from the internet.
+  - A bit is the smallest unit of data a computer can store.
   answers:
+  - True
   - False
   - True
   - False
+  - True
   iteration: 0
-  maxIteration: 2
+  maxIteration: 4
   playerHUD: {fileID: 1727677075}
   enemyHUD: {fileID: 1290496122}
   state: 0
