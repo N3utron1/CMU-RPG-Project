@@ -13,6 +13,13 @@ public class Unit : MonoBehaviour
 	public int maxHP;
 	public int currentHP;
 
+	//Scripts for question.
+	/*
+	public int numberOfQuestions;
+	public string[] enemyQuestions;
+	public string[] enemyAnswers;
+	*/
+
 	public ShakerScript shakerScript;
 
 	public bool TakeDamage(int dmg)

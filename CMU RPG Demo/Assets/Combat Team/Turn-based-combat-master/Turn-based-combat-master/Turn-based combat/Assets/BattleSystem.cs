@@ -23,12 +23,16 @@ public class BattleSystem : MonoBehaviour
 
 	public Text dialogueText;
 
-	public string[] questions = {"1 + 1 = 2", "2 + 2 = 5", "3 + 3 = 6"};
-	public string[] answers = {"True", "False", "True"};
+	//Base Questions
+	//public string[] questions = {"1 + 1 = 2", "2 + 2 = 5", "3 + 3 = 6"};
+	//public string[] answers = {"True", "False", "True"};
+
+	public string[] questions;
+	public string[] answers;
 
 	public int iteration = 0;
 	//public int listSize;
-	public int maxIteration = 2;
+	public int maxIteration;
 
 	public BattleHUD playerHUD;
 	public BattleHUD enemyHUD;
@@ -76,6 +80,11 @@ public class BattleSystem : MonoBehaviour
 
 		GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
 		enemyUnit = enemyGO.GetComponent<Unit>();
+
+		//maxIteration = (enemyUnit.numberOfQuestions - 1);
+
+		//enemyUnit.enemyQuestions.CopyTo(questions, 0);
+		//enemyUnit.enemyAnswers.CopyTo(answers, 0);
 
 		//AButton.enabled = false;
 		//AButtonText.enabled = false;
