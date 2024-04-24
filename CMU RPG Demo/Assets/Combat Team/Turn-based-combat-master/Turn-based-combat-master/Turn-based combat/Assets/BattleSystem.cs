@@ -85,6 +85,8 @@ public class BattleSystem : MonoBehaviour
 		GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
 		enemyUnit = enemyGO.GetComponent<Unit>();
 
+		playerUnit.unitLevel = StateNameController.playerLevel;
+
 		//maxIteration = (enemyUnit.numberOfQuestions - 1);
 
 		//enemyUnit.enemyQuestions.CopyTo(questions, 0);
@@ -167,83 +169,40 @@ public class BattleSystem : MonoBehaviour
 	{
 		if(state == BattleState.WON)
 		{
-			dialogueText.text = "You won the battle!";
+			StateNameController.playerLevel = StateNameController.playerLevel + 1;
 
-			StartCoroutine(Waiter());
-
-            SceneManager.LoadScene(winSceneName);
+			StartCoroutine(Winner());
 
 		} else if (state == BattleState.LOST)
 		{
-			dialogueText.text = "You were defeated.";
-
-			StartCoroutine(Waiter());
-        
-            SceneManager.LoadScene(loseSceneName);
-        	
+			StartCoroutine(Loser());
 		}
 	}
+
+//Win function
+	IEnumerator Winner()
+	{
+		dialogueText.text = "You won the battle! You Level up!";
+
+		yield return new WaitForSeconds(2f);
+
+		SceneManager.LoadScene(winSceneName);
+	}
+
+//Lose function
+	IEnumerator Loser()
+	{
+		dialogueText.text = "You were defeated.";
+
+		yield return new WaitForSeconds(2f);
+
+		SceneManager.LoadScene(loseSceneName);
+	}
+
 
 //Player turn function for allowing button use
 	void PlayerTurn()
 	{
-		//Code for if it is a true/false question, or a multiple choice question.
-		/*
-		if(questionDB[iteration].type == "t_f"){
-			trueFalse = true;
-		}else{
-			trueFalse = false;
-		}
-		*/
-		//trueFalse = true;
-/*
-		if(trueFalse){
-			//Renames
-			trueButtonText.text = "True";
-			falseButtonText.text = "False";
-
-			//Positioning
-			RectTransform trueButtonRectTransform = trueButton.GetComponent<RectTransform>();
-			trueButtonRectTransform.anchoredPosition = truePosition;
-			RectTransform falseButtonRectTransform = falseButton.GetComponent<RectTransform>();
-			falseButtonRectTransform.anchoredPosition = falsePosition;
-
-			//B and D disenabling
-			BButton.enabled = false;
-			BButtonText.enabled = false;
-			DButton.enabled = false;
-			DButtonText.enabled = false;
-		}else{
-			//Renames
-			trueButtonText.text = "A";
-			falseButtonText.text = "C";
-
-			//Suffle Mechanism?
-
-			trueButtonText.text = questionDB[iteration].nonAnswers[0];
-			BButtonText.text = questionDB[iteration].nonAnswers[1];
-			falseButtonText.text = questionDB[iteration].nonAnswers[2];
-			DButtonText.text = questionDB[iteration].nonAnswers[3];
-
-			trueButtonText.text = questionDB[iteration].questions[0];
-			
-
-			//Positioning
-			RectTransform trueButtonRectTransform = trueButton.GetComponent<RectTransform>();
-			trueButtonRectTransform.anchoredPosition = aPosition;
-			RectTransform falseButtonRectTransform = falseButton.GetComponent<RectTransform>();
-			falseButtonRectTransform.anchoredPosition = cPosition;
-
-			//B and D enabling
-			BButton.enabled = true;
-			BButtonText.enabled = true;
-			DButton.enabled = true;
-			DButtonText.enabled = true;
-
-
-		}		
-*/
-
 		if(iteration > maxIteration){
 			iteration = 0;
 		}
@@ -266,9 +225,9 @@ public class BattleSystem : MonoBehaviour
 		StartCoroutine(EnemyTurn());
 	}
 
-	IEnumerator Waiter()
+	IEnumerator PauseForSeconds()
 	{
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(2f);
 	}
 
 //Button controls
