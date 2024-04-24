@@ -12511,6 +12511,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1318976432026030864, guid: d96c0846c7d644f72bfbf301de1def5c,
+        type: 3}
+      propertyPath: baseSpeed
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 1318976432026030865, guid: d96c0846c7d644f72bfbf301de1def5c,
         type: 3}
       propertyPath: model.player
