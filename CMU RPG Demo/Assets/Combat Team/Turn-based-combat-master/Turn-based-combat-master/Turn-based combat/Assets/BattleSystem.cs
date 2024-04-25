@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-//using UnityEngine.Object;
+using Unity.Services.Core;
+using Unity.Services.Authentication;
+using Unity.Services.CloudSave;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
 public class BattleSystem : MonoBehaviour
 {
+
+	//CloudSave variable
+	private const string CLOUD_SAVE_LEVEL_KEY = "level";
+
 	public List<Question> questionDB;
 
 	//public int maxIteration = questionDB.length
@@ -49,20 +55,6 @@ public class BattleSystem : MonoBehaviour
 	public Button falseButton;
 	public Text falseButtonText;
 
-	//public Button AButton;
-	//public Text AButtonText;
-
-	//public Button BButton;
-	//public Text BButtonText;
-
-	//public Button CButton;
-	//public Text CButtonText;
-
-	//public Button DButton;
-	//public Text DButtonText;
-
-	//public bool trueFalse;
-
 	public Vector2 truePosition;
 	public Vector2 aPosition;
 
@@ -86,23 +78,6 @@ public class BattleSystem : MonoBehaviour
 		enemyUnit = enemyGO.GetComponent<Unit>();
 
 		playerUnit.unitLevel = StateNameController.playerLevel;
-
-		//maxIteration = (enemyUnit.numberOfQuestions - 1);
-
-		//enemyUnit.enemyQuestions.CopyTo(questions, 0);
-		//enemyUnit.enemyAnswers.CopyTo(answers, 0);
-
-		//AButton.enabled = false;
-		//AButtonText.enabled = false;
-
-		//BButton.enabled = false;
-		//BButtonText.enabled = false;
-
-		//CButton.enabled = false;
-		//CButtonText.enabled = false;
-
-		//DButton.enabled = false;
-		//DButtonText.enabled = false;
 
 		dialogueText.text = "A wild " + enemyUnit.unitName + " approaches...";
 
@@ -170,6 +145,8 @@ public class BattleSystem : MonoBehaviour
 		if(state == BattleState.WON)
 		{
 			StateNameController.playerLevel = StateNameController.playerLevel + 1;
+
+			SaveDataWithErrorHandling();
 
 			StartCoroutine(Winner());
 
@@ -254,17 +231,7 @@ public class BattleSystem : MonoBehaviour
 		}
 		*/
 	}
-/*
-	public void OnB_Button()
-	{
-		MultiPressButton(BButtonText.text);
-	}
 
-	public void OnD_Button()
-	{
-		MultiPressButton(DButtonText.text);
-	}
-*/
 //True/False Button function
 	public void PressButton(string buttonValue)
 	{
@@ -280,29 +247,28 @@ public class BattleSystem : MonoBehaviour
 			StartCoroutine(EnemyTurn());
 		}
 	}
-//Multichoice Button function
-/*
-		public void MultiPressButton(string buttonValue)
-	{
-		if (state != BattleState.PLAYERTURN)
-			return;
 
-		if(answers[iteration] == buttonValue){
-			iteration = iteration + 1;
-			StartCoroutine(PlayerAttack());
-		}else{
-			iteration = iteration + 1;
-			state = BattleState.ENEMYTURN;
-			StartCoroutine(EnemyTurn());
-		}
-	}
-*/
+	async void SaveDataWithErrorHandling() {
+        var data = new Dictionary<string, object>{ 
+            {CLOUD_SAVE_LEVEL_KEY, StateNameController.playerLevel},  
+        };
+        try {
+            Debug.Log("Attempting to save data...");
+            await CloudSaveService.Instance.Data.ForceSaveAsync(data);
+            Debug.Log("Save data success!");
+        } catch (ServicesInitializationException e) {
+            // service not initialized
+            Debug.LogError(e);
+        } catch (CloudSaveValidationException e) {
+            // validation error
+            Debug.LogError(e);
+        } catch (CloudSaveRateLimitedException e) {
+            // rate limited
+            Debug.LogError(e);
+        } catch (CloudSaveException e) {
+            Debug.LogError(e);
+        }
 
-/*
-  if(questionDB[iteration].answer == buttonValue){
-	iteration = iteration + 1;
-	StartCoroutine(PlayerAttack());
-  }
-*/
+    }
 
 }
